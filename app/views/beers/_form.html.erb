@@ -1,4 +1,4 @@
-<%= form_for(@beer) do |f| %>
+  <%= form_for(@beer) do |f| %>
   <% if @beer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@beer.errors.count, "error") %> prohibited this beer from being saved:</h2>
@@ -17,11 +17,11 @@
   </div>
   <div class="field">
     <%= f.label :style %><br>
-    <%= f.text_field :style %>
+    <%= f.select :style, options_for_select(@styles) %>
   </div>
   <div class="field">
     <%= f.label :brewery_id %><br>
-    <%= f.number_field :brewery_id %>
+    <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

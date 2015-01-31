@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @user.username %></h1>
+
+<p>has made <%= @user.ratings.count %> ratings, with an average of <%= @user.average_rating %>.</p>
+
+<p> Member of
+  <% @user.memberships.each do |m| %>
+    <%= link_to m.beer_club.name, m.beer_club %>
+  <% end %>
+</p>
+
+<h2>Ratings</h2>
+
+<ul>
+  <% @user.ratings.each do |r| %>
+    <li><%= r %> <%= link_to 'delete', r, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

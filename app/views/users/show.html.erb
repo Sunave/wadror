@@ -14,9 +14,19 @@
 
 <ul>
   <% @user.ratings.each do |r| %>
-    <li><%= r %> <%= link_to 'delete', r, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+    <li>
+      <%= r %>
+      <% if @user == current_user %>
+        <%= link_to 'delete', r, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user == current_user %>
+  <p>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Remove account', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
 <%= link_to 'Back', users_path %>

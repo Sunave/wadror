@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.0.0
-
+- 2.0.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: P29l7X/zFXAf1s2twVMwpmx1H0Uw7zaAXttdszh8l+ou6M/Kturfn9COYf7J9VbTca5pUUynXu6A193iVrqCPQJ6TcdEXH6ToiQS6vxEpS0BNQAZmGanVlQEAgurNQ9bnVT2tCHlRp9FNiNjAMoyFs1i/ct80rI7ie5QeJYoFbA=
+  app: sunave-ratebeer
+  on:
+    repo: Sunave/wadror

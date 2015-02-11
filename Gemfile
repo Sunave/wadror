@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -47,6 +49,13 @@ group :development, :test do
   gem 'better_errors'
 
   gem 'rspec-rails', '~> 3.0'
+
+  # Stuff for rspec-guard-growl automated testing when saving file
+  # gem 'spring-commands-rspec' # after uncommenting and bundleing this, you have to configure spring
+  gem 'guard-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
+  gem 'growl'
+  gem 'ruby_gntp'
 end
 
 group :production do
@@ -59,4 +68,5 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end

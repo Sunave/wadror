@@ -53,9 +53,13 @@ group :development, :test do
   # Stuff for rspec-guard-growl automated testing when saving file
   # gem 'spring-commands-rspec' # after uncommenting and bundleing this, you have to configure spring
   gem 'guard-rspec'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
+  #gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'growl'
   gem 'ruby_gntp'
+end
+
+group :test, :darwin do
+  gem 'rb-fsevent'
 end
 
 group :production do

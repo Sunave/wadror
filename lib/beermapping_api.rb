@@ -5,6 +5,10 @@ class BeermappingApi
     Rails.cache.fetch(city, expires_in: 1.weeks) { fetch_places_in(city) }
   end
 
+  def self.place(city, id)
+    places_in(city).find { |place| place.id == id }
+  end
+
   private
 
   def self.fetch_places_in(city)

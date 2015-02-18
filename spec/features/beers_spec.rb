@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Beers' do
   before :each do
     FactoryGirl.create :user
+    FactoryGirl.create :style
+    FactoryGirl.create :brewery
   end
 
   it "creates beer which has non-empty name" do

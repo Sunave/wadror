@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Style, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Style do
+  it "has one after created" do
+    Style.create name:"Lager", description: "Nice"
+    expect(Style.count).to eq(1)
+  end
 end

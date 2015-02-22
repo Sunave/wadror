@@ -44,7 +44,7 @@ describe "User" do
     create_test_variables
     sign_in(username:"Pekka", password:"Foobar1")
     visit user_path(@user)
-    find(:xpath, "(//a[text()='delete'])[1]").click
+    all('.delete')[0].click
     expect(page).not_to have_content "iso 3 17"
     expect(@user.ratings.count).to eq(1)
   end

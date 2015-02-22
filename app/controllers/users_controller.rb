@@ -64,6 +64,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle_freezed
+    user = User.find(params[:id])
+    user.update_attribute :freezed, (not user.freezed)
+
+    new_status = user.freezed? ? "frozen" : "reactivated"
+
+    redirect_to :back, notice:"User has been #{new_status}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

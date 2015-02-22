@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Favorite beer</th>
+    <th>Preferred style</th>
+    <th>Favorite brewery</th>
+    <th>Ratings</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% users.each do |user| %>
+  <tr>
+    <td><%= link_to user.username, user %></td>
+    <td><%= user.favorite_beer %></td>
+    <td><%= user.favorite_style %></td>
+    <td><%= user.favorite_brewery %></td>
+    <td><%= user.ratings.count %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>

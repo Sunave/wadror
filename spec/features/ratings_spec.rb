@@ -32,7 +32,7 @@ describe "Rating" do
 
     visit ratings_path
 
-    expect(page).to have_content 'Number of ratings 3'
+    expect(page).to have_content 'number of ratings 3'
     expect(page).to have_content 'iso 3 17'
     expect(page).to have_content 'iso 3 12'
     expect(page).to have_content 'Karhu 40'

@@ -34,6 +34,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
 
+gem 'bootstrap-sass'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -53,7 +55,6 @@ group :development, :test do
   # Stuff for rspec-guard-growl automated testing when saving file
   # gem 'spring-commands-rspec' # after uncommenting and bundleing this, you have to configure spring
   gem 'guard-rspec'
-  #gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'growl'
   gem 'ruby_gntp'
 end
@@ -62,15 +63,19 @@ group :test, :darwin do
   gem 'rb-fsevent'
 end
 
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
-
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+end
+
+group :development do
+  gem 'rails_layout'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
 end

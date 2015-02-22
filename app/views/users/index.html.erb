@@ -2,7 +2,7 @@
 
 <h1>Listing Users</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Username</th>
@@ -14,11 +14,11 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user %></td>
+        <% if user.freezed? and current_user.admin? %>
+          <td><span class="label label-info">account frozen</span></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New User', new_user_path %>

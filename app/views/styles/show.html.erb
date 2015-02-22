@@ -1,6 +1,6 @@
 <h1><%= @style.name %></h1>
 
-<p><%= @style.description %></p>
+<quote><%= @style.description %></quote>
 
 <h2>Beers</h2>
 <ul>
@@ -9,3 +9,4 @@
   <% end %>
 </ul>
 
+<%= edit_and_destroy_buttons(@style) %>

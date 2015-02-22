@@ -107,9 +107,10 @@ describe "favorite brewery" do
   end
 
   it "returns the brewery when there's only one rating" do
-    beer = create_beer_with_rating(10, user)
+    brewery = FactoryGirl.create(:brewery, name:"Koff")
+    beer = create_beer_with_rating(10, user, brewery)
 
-    expect(user.favorite_brewery).to eq("anonymous")
+    expect(user.favorite_brewery).to eq(brewery)
   end
 
   it "returns the right one even when highest has less ratings" do
@@ -121,13 +122,20 @@ describe "favorite brewery" do
     user.ratings << FactoryGirl.create(:rating, score:23, beer:beer, user:user)
     user.ratings << FactoryGirl.create(:rating2, score:43, beer:beer2, user:user)
 
-   expect(user.favorite_brewery).to eq("favoritous")
+   expect(user.favorite_brewery).to eq(brw2)
   end
 end
 
-def create_beer_with_rating(score, user)
-  beer = FactoryGirl.create(:beer)
-  FactoryGirl.create(:rating, score:score, beer:beer, user:user)
+def create_beer_with_rating(score, user, brewery=nil, style=nil)
+  brewery ||= FactoryGirl.create(:brewery)
+  if style.nil?
+    style = FactoryGirl.create(:style)
+  elsif style.is_a? String
+    style = FactoryGirl.create(:style, name: style)
+  end
+
+  beer = FactoryGirl.create(:beer, brewery: brewery, style: style)
+  FactoryGirl.create(:rating, score: score, beer: beer, user: user)
   beer
 end
 

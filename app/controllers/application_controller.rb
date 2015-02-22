@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+  class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   def ensure_that_signed_in
     redirect_to signin_path, notice:'you should be signed in' if current_user.nil?
   end
+
+    def ensure_that_admin
+      redirect_to :back, notice: 'you should be admin to do that' unless current_user.admin?
+    end
 end

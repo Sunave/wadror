@@ -1,24 +1,29 @@
 <h1>Rating statistics</h1>
 
-<p>Total number of ratings <%= @ratings.count %></p>
+<% cache 'ratinglists', expires_in:10.minutes do %>
 
+<p>Total number of ratings <%= @ratingcount %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"> Top</h3>
+  </div>
+  <div class="panel-body">
 <div class="row">
   <div class="col-sm-4">
-    <h2>Best beers</h2>
-
+    <h3>Beers</h3>
     <%= render 'best_table', ratings: @top_beers %>
-
   </div>
   <div class="col-sm-4">
-    <h2>Best breweries</h2>
-
+    <h3>Breweries</h3>
     <%= render 'best_table', ratings: @top_breweries %>
   </div>
   <div class="col-sm-4">
-    <h2>Best styles</h2>
-
+    <h3>Styles</h3>
     <%= render 'best_table', ratings: @top_styles %>
   </div>
+</div>
+</div>
 </div>
 
 <h2>Most active users</h2>
@@ -30,6 +35,8 @@
     <li> <%= rating %> <%= link_to rating.user.username, rating.user %></li>
   <% end %>
 </ul>
+
+<% end %>
 
 <% if not current_user.nil? %>
   <p><%= link_to "New rating", new_rating_path, class: "btn btn-primary" %></p>

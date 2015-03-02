@@ -1,28 +1,65 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @brewery.name %>
-  <% if not @brewery.active %>
-    <span class="label label-info">retired</span>
-  <% end %>
-</h2>
+<% cache @brewery do %>
 
-<p><i>Established in  <%= @brewery.year %></i></p>
+  <h2><%= @brewery.name %>
+    <% if not @brewery.active %>
+      <span class="label label-info">retired</span>
+    <% end %>
+  </h2>
 
-<p>Number of beers <%= @brewery.beers.count %></p>
+  <p><i>Established in  <%= @brewery.year %></i></p>
 
-<p>
-  <% @brewery.beers.each do |beer| %>
-    <%= link_to beer.name, beer %>
-  <% end %>
-</p>
+  <div class="row">
+    <div class="col-md-3">
+      <h3>
+        <span class="label label-info">
+          <%= @brewery.beers.count %> beers
+        </span>
+      </h3>
+    </div>
 
-<p>
-  <% if @brewery.ratings.empty? %>
-    This brewery has no ratings.
+    <% if @brewery.ratings.empty? %>
+      <div class="col-md-3">
+        <h3>
+          <span class="label label-warning">
+            no ratings
+          </span>
+        </h3>
+      </div>
+
   <% else %>
-    Has <%= pluralize(@brewery.ratings.count, 'rating') %>, average <%= round(@brewery.average_rating) %>.
-  <% end %>
-</p>
+      <div class="col-md-3">
+        <h3>
+          <span class="label label-info">
+            <%= pluralize(@brewery.ratings.count, 'rating') %>
+          </span>
+        </h3>
+      </div>
+      <div class="col-md-3">
+        <h3>
+          <span class="label label-info">
+            average <%= round(@brewery.average_rating) %>
+          </span>
+        </h3>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+  <ul class="list-group">
+    <% @brewery.beers.each do |beer| %>
+      <li class="list-group-item">
+        <%= link_to beer.name, beer %>
+      </li>
+    <% end %>
+  </ul>
+      </div>
+    </div>
+
+
+<% end %>
 
 <p><%= link_to "Change activity", toggle_activity_brewery_path(@brewery.id), method: :post,
                class: "btn btn-primary" %></p>

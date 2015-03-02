@@ -12,12 +12,22 @@ class User < ActiveRecord::Base
 
   has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
-  has_many :memberships, dependent: :destroy
+  has_many :memberships, -> { where confirmed: true }, dependent: :destroy
+  has_many :pending_memberships, -> { pending }, class_name: 'Membership', dependent: :destroy
   has_many :beer_clubs, through: :memberships
 
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth["provider"]
+      user.uid = auth["uid"]
+      user.username = auth["extra"]["raw_info"]["login"]
+      user.password = (('0'..'9').to_a + ('a'..'z').to_a + ('A'..'Z').to_a).shuffle.first(20).join
+
+    end
+  end
+
   def self.top_raters(n)
-    sorted_by_rating_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count||0) }
-    sorted_by_rating_in_desc_order.first(n)
+    User.all.sort_by{ |u| -(u.ratings.count||0) }.first(n)
   end
 
   def favorite_beer

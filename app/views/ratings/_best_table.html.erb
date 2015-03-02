@@ -9,7 +9,7 @@
   <tbody>
   <% ratings.each do |rating| %>
     <tr>
-      <td><%= rating.name %></td>
+      <td><%= link_to rating.name, rating %></td>
       <td><%= rating.average_rating.round(1) unless rating.ratings.empty? %></td>
     </tr>
   <% end %>

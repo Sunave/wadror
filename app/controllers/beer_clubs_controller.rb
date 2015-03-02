@@ -14,6 +14,8 @@ class BeerClubsController < ApplicationController
   def show
     if @beer_club.members.include? current_user
       @membership = @beer_club.memberships.find_by user_id:current_user
+      #@pending_members = @beer_club.pending_members
+      @pending_memberships = @beer_club.pending_memberships
     else
       @membership = Membership.new
     end
@@ -37,6 +39,7 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
+        Membership.create beer_club:@beer_club, user: current_user, confirmed: true
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else

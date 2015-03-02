@@ -1,36 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @beer.name %>
-</p>
 
-<p>
-  <strong>Style:</strong>
-  <%= @beer.style %>
-</p>
 
-<p>
-  <strong>Brewery:</strong>
-  <%= @beer.brewery.name %>
-</p>
+<% cache @beer do %>
 
-<p>
-  <% if @beer.ratings.empty? %>
-    This beer has not been rated yet.
-  <% else %>
-    Has <%= pluralize(@beer.ratings.count,'rating') %>, average <%= @beer.average_rating %>.
-  <% end %>
-</p>
+
+
+  <h1><%= @beer.name %></h1>
+
+  <p>
+    <%= link_to @beer.style, @beer.style %>
+    brewed by
+    <%= link_to @beer.brewery.name, @beer.brewery %>
+  </p>
+
+  <p>
+    <% if @beer.ratings.empty? %>
+      This beer has not been rated yet.
+    <% else %>
+      Has <%= pluralize(@beer.ratings.count,'rating') %>, average <%= @beer.average_rating %>.
+    <% end %>
+  </p>
+
+<% end %>
+
+<br>
 
 <% if current_user %>
-  <h4>Give a rating: </h4>
 
-  <%= form_for(@rating) do |f| %>
-    <%= f.hidden_field :beer_id %>
-    score: <%= f.number_field :score %>
-    <%= f.submit class:"btn btn-primary"%>
-  <% end %>
+  <div class="row">
+    <div class="col-md-4">
+
+      <%= form_for(@rating) do |f| %>
+        <%= f.hidden_field :beer_id %>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">
+            <span class="glyphicon glyphicon-plus"></span>
+          </span>
+          <%= f.number_field :score, class:"form-control", placeholder:"score" %>
+          <span class="input-group-btn">
+            <%= f.submit "Rate", class:"btn btn-primary"%>
+          </span>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
 <% end %>
+
+<br>
 
 <%= edit_and_destroy_buttons(@beer) %>

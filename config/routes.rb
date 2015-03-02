@@ -1,6 +1,10 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
-  resources :memberships, only: [:new, :create, :destroy]
+  resources :memberships, only: [:new, :create, :destroy] do
+    post 'confirm', on: :member
+  end
 
   resources :beer_clubs
 
@@ -29,6 +33,16 @@ Rails.application.routes.draw do
   post 'places', to: 'places#search'
 
   resources :styles, only: [:index, :show]
+
+  get 'beerlist', to:'beers#list'
+
+  get 'ngbeerlist', to:'beers#nglist'
+
+  get 'brewerylist', to: 'breweries#nglist'
+
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
+
+  mount Sidekiq::Web, at: '/sidekiq' if Rails.env.development?
 
 
   # The priority is based upon order of creation: first created -> highest priority.

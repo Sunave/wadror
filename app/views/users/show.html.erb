@@ -18,6 +18,15 @@
   <% end %>
 </p>
 
+  <% unless @nonapproved_memberships.empty? %>
+    <h4>Applied membership of</h4>
+    <ul>
+      <% @nonapproved_memberships.each do |m| %>
+        <li><%= m.beer_club.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
 
 
 <h2>Favorites</h2>

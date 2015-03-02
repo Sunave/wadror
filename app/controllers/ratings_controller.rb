@@ -1,11 +1,15 @@
 class RatingsController < ApplicationController
   def index
-    @ratings = Rating.all
-    @recents = Rating.recent
-    @top_breweries = Brewery.top 3
-    @top_beers = Beer.top 3
-    @top_raters = User.top_raters 3
-    @top_styles = Style.top 3
+    # Uses app/workers/update_rating_worker.rb to refresh cache content every 10 minutes
+    # View is cached
+    # Changed to Puma instead of WEBrick
+    UpdateRatingWorker.perform_async if Rails.cache.read("styles top 3").nil?
+    @ratingcount = Rating.count
+    @recents = Rails.cache.read "recent ratings"
+    @top_breweries = Rails.cache.read "breweries top 3"
+    @top_beers = Rails.cache.read "beers top 3"
+    @top_raters = Rails.cache.read "raters top 3"
+    @top_styles = Rails.cache.read "styles top 3"
   end
 
   def new

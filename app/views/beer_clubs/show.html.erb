@@ -16,15 +16,28 @@
 
 <%if current_user %>
   <% if @beer_club.members.include? current_user %>
+    <% unless @pending_memberships.empty? %>
+      <h2>Applications waiting for approval</h2>
+      <ul>
+        <% @pending_memberships.each do |m| %>
+          <li>
+            <%= m.user.username %>
+            <%= link_to "Confirm", confirm_membership_path(m.id),
+                        method: :post, class: "btn btn-primary" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <%= form_for(@membership, method: "delete") do |f| %>
       <%= f.hidden_field :beer_club_id %>
-      <%= f.submit value: "End the membership" %>
+      <%= f.submit value: "End membership", class: "btn btn-danger" %>
     <% end %>
   <% end %>
   <% if @beer_club.members.exclude? current_user %>
     <%= form_for(@membership) do |f| %>
       <%= f.hidden_field :beer_club_id %>
-      <%= f.submit value: "Join the club" %>
+      <%= f.submit value: "Join the club", class: "btn btn-primary" %>
     <% end %>
   <% end %>
 <% end %>

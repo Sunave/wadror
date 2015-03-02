@@ -36,6 +36,14 @@ gem 'httparty'
 
 gem 'bootstrap-sass'
 
+gem 'jquery-turbolinks'
+
+gem 'sidekiq'
+
+gem 'puma'
+
+gem 'omniauth-github'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -69,10 +77,15 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :development do
   gem 'rails_layout'
+  gem 'rack-mini-profiler'
+  gem 'sinatra', require: false
+  gem 'slim'
 end
 
 group :production do

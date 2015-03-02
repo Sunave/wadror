@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'sessions#create_oauth'
 
-  mount Sidekiq::Web, at: '/sidekiq' if Rails.env.development?
+ # mount Sidekiq::Web, at: '/sidekiq' if Rails.env.development?
 
 
   # The priority is based upon order of creation: first created -> highest priority.

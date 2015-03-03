@@ -85,7 +85,7 @@ group :development do
   gem 'rails_layout'
   gem 'rack-mini-profiler'
   # gem 'sinatra', require: false
-  gem 'slim'
+  # gem 'slim'
 end
 
 group :production do

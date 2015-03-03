@@ -4,22 +4,21 @@
 
 <p>Total number of ratings <%= @ratingcount %></p>
 
+  <h2>Top lists</h2>
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"> Top</h3>
-  </div>
+
   <div class="panel-body">
 <div class="row">
   <div class="col-sm-4">
-    <h3>Beers</h3>
+    <h4>Beers</h4>
     <%= render 'best_table', ratings: @top_beers %>
   </div>
   <div class="col-sm-4">
-    <h3>Breweries</h3>
+    <h4>Breweries</h4>
     <%= render 'best_table', ratings: @top_breweries %>
   </div>
   <div class="col-sm-4">
-    <h3>Styles</h3>
+    <h4>Styles</h4>
     <%= render 'best_table', ratings: @top_styles %>
   </div>
 </div>

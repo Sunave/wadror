@@ -7,12 +7,12 @@ script:
 - bundle exec rake db:test:prepare
 - bundle exec rspec -fd spec/
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 deploy:
   provider: heroku
   api_key:
-    secure: P29l7X/zFXAf1s2twVMwpmx1H0Uw7zaAXttdszh8l+ou6M/Kturfn9COYf7J9VbTca5pUUynXu6A193iVrqCPQJ6TcdEXH6ToiQS6vxEpS0BNQAZmGanVlQEAgurNQ9bnVT2tCHlRp9FNiNjAMoyFs1i/ct80rI7ie5QeJYoFbA=
+    secure: Jlb5ATsgrrRI2dhoXMyf6Y/lzRuXdn08pSgQJIJZoQDIjhJfXaNyeXfauZ+Lr74c3Ad9omTrNyfVRWHSezFBGi0aey84FtKna7zObyQBFVATGjEruAOvG8BPIk+dFymCcax7vOhPLLTVHwA0gNp6n+SN03sTtyq+0tAlD3KYIAY=
   app: sunave-ratebeer
   on:
     repo: Sunave/wadror

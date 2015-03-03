@@ -38,7 +38,7 @@ gem 'bootstrap-sass'
 
 gem 'jquery-turbolinks'
 
-gem 'sidekiq'
+# gem 'sidekiq'
 
 gem 'puma'
 
@@ -84,7 +84,7 @@ end
 group :development do
   gem 'rails_layout'
   gem 'rack-mini-profiler'
-  gem 'sinatra', require: false
+  # gem 'sinatra', require: false
   gem 'slim'
 end
 

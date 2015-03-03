@@ -1,15 +1,19 @@
 class RatingsController < ApplicationController
   def index
-    # Uses app/workers/update_rating_worker.rb to refresh cache content every 10 minutes
+
     # View is cached
-    # Changed to Puma instead of WEBrick
-    UpdateRatingWorker.perform_async if Rails.cache.read("styles top 3").nil?
+    # Changed to Puma webserver, which seems to be faster
+    # There used to be a different caching thread that used sidekiq,
+    # which used app/workers/update_rating_worker, but it didn't work out with Heroku so it's disabled.
+    # Now it just fetches to caches so that after first loading, they expire at different times.
+    # There's a slight possibility that this evens the load between different page loads.
+
     @ratingcount = Rating.count
-    @recents = Rails.cache.read "recent ratings"
-    @top_breweries = Rails.cache.read "breweries top 3"
-    @top_beers = Rails.cache.read "beers top 3"
-    @top_raters = Rails.cache.read "raters top 3"
-    @top_styles = Rails.cache.read "styles top 3"
+    @recents = Rails.cache.fetch("recent ratings", expires_in: 10.minutes) { Rating.recent }
+    @top_breweries = Rails.cache.fetch("breweries top 3", expires_in: 9.minutes)  { Brewery.top 3 }
+    @top_beers = Rails.cache.fetch("beers top 3", expires_in: 11.minutes) { Beer.top 3 }
+    @top_raters = Rails.cache.fetch("raters top 3", expires_in: 16.minutes) { User.includes(:beers, :ratings).top_raters(3) }
+    @top_styles = Rails.cache.fetch("styles top 3", expires_in: 8.minutes) { Style.top 3 }
   end
 
   def new

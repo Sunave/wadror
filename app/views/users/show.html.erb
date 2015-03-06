@@ -61,7 +61,7 @@
 
 </div>
 
-<% if current_user.admin? %>
+<% if !current_user.nil? and current_user.admin? %>
   <%= link_to toggle_freezed_user_path(@user.id), method: :post, class: "btn btn-danger" do %>
     <% if @user.freezed? %>
       Reactivate account
